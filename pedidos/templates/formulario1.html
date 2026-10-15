@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Pedidos</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+        margin: 0;
+        padding: 40px 16px;
+        min-height: 100vh;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin: 0 0 24px;
+        color: #0f172a;
+    }
+
+    form {
+        max-width: 480px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 32px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .fecha {
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        color: #2d2d2d;
+        background: #f8fafc;
+        padding-left: 10px;
+        font-size: 1rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #475569;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 1rem;
+        color: #1e293b;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    input[type="text"]:focus {
+        outline: none;
+        background: #ffffff;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ffffff;
+        background: #3b82f6;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+        background: #2563eb;
+    }
+
+    .btn-submit:active {
+        transform: scale(0.98);
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 16px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #64748b;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .back-link:hover {
+        color: #1e293b;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 520px) {
+        form {
+            padding: 24px 18px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <h1>{% if Pedido %}Editar{% else %}Nuevo{% endif %} Pedido</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="numero_pedido">Número de Pedido</label>
+            <input type="text" id="numero_pedido" name="numero_pedido" value="{{ Pedido.numero_pedido|default:'' }}" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="nombre_cliente">Nombre del Cliente</label>
+            <input type="text" id="nombre_cliente" name="nombre_cliente" value="{{ Pedido.nombre_cliente|default:'' }}" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <input type="date" class="fecha" id="fecha" name="fecha" value="{{ Pedido.fecha|default:'' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" id="descripcion" name="descripcion" value="{{ Pedido.descripcion|default:'' }}" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="total">Total</label>
+            <input type="number" class="fecha" id="total" name="total" value="{{ Pedido.total|default:'' }}" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado</label>
+            <select name="estado" class="fecha" id="estado" required>
+                <option value="">Seleccione un Estado</option>
+                <option value="Pendiente" {% if Pedido.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+                <option value="Completado" {% if Pedido.estado == "Completado" %}selected{% endif %}>Completado</option>
+                <option value="Cancelado" {% if Pedido.estado == "Cancelado" %}selected{% endif %}>Cancelado</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" name="usuario" value="{{ Pedido.usuario|default:'' }}" required autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn-submit">Guardar</button>
+        <a href="/pedidos/lista/" class="back-link">Cancelar y volver</a>
+    </form>
+
+</body>
+</html>
