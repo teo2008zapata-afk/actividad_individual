@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-%ntvk8d4)iz^@yl^8^tai=gd!5$))5pnji3fu+7#q#)vx*455d
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'actividad-individual-postgres.onrender.com',
+    'actividad-individual.onrender.com',
     'localhost',
     '127.0.0.1'
 ]
