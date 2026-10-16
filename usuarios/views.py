@@ -13,7 +13,7 @@ def iniciar_sesion(request):
       
         if usuario is not None:
             login(request, usuario)
-            destino = request.GET.get("next", "/asistencia/lista") # Redirigir a la página de inicio después del login
+            destino = request.GET.get("next", "/productos/lista") # Redirigir a la página de inicio después del login
             return redirect(destino)
 
         return render(
